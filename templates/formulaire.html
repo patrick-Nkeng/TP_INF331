@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>customer home</title>
+    <link rel="stylesheet" href="/static/formulaire.css">
+</head>
+<body>
+  <div class="container">
+    <div class="logo">TechAssist</div>
+    <div class="welcome-message">Welcome! 👋</div>
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab('login')">Login</div>
+      <div class="tab" onclick="switchTab('signup')">Sign Up</div>
+    </div>
+
+    <form id="loginForm" onsubmit="handleSubmit(event, 'login')">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Login</button>
+
+      <div class="divider">or</div>
+
+      <button type="button" class="btn btn-google" onclick="signInWithGoogle()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 48 48">
+          <path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/>
+          <path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/>
+          <path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/>
+          <path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/>
+        </svg>
+        Continue with Google
+      </button>
+    </form>
+
+    <form id="signupForm" style="display: none;" onsubmit="handleSubmit(event, 'signup')">
+      <div class="form-group">
+        <label for="signupName">Full Name</label>
+        <input type="text" id="signupName" required>
+      </div>
+      <div class="form-group">
+        <label for="signupEmail">Email</label>
+        <input type="email" id="signupEmail" required>
+      </div>
+      <div class="form-group">
+        <label for="birthdate">Date of Birth</label>
+        <input type="date" id="birthdate" required>
+      </div>
+      <div class="form-group">
+        <label for="gender">Gender</label>
+        <select id="gender" required>
+          <option value="">Select gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+          <option value="prefer-not-say">Prefer not to say</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="location">Location</label>
+        <input type="text" id="location" placeholder="City, Country" required>
+      </div>
+      <div class="form-group">
+        <label for="about">About You</label>
+        <textarea id="about" placeholder="Tell us about yourself..." required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="signupPassword">Password</label>
+        <input type="password" id="signupPassword" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Sign Up</button>
+
+      <div class="divider">or</div>
+
+      <button type="button" class="btn btn-google" onclick="signInWithGoogle()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 48 48">
+          <path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/>
+          <path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/>
+          <path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/>
+          <path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/>
+        </svg>
+        Continue with Google
+      </button>
+    </form>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="https://example.com/about">About</a>
+        <a href="https://example.com/contact">Contact</a>
+        <a href="https://example.com/privacy">Privacy Policy</a>
+        <a href="https://example.com/terms">Terms of Service</a>
+      </div>
+      <div class="footer-copyright">
+        © 2024 TechAssist. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function switchTab(tab) {
+      const loginForm = document.getElementById('loginForm');
+      const signupForm = document.getElementById('signupForm');
+      const tabs = document.querySelectorAll('.tab');
+      
+      tabs.forEach(t => t.classList.remove('active'));
+      
+      if (tab === 'login') {
+        loginForm.style.display = 'block';
+        signupForm.style.display = 'none';
+        tabs[0].classList.add('active');
+      } else {
+        loginForm.style.display = 'none';
+        signupForm.style.display = 'block';
+        tabs[1].classList.add('active');
+      }
+    }
+
+    function handleSubmit(event, type) {
+      event.preventDefault();
+      
+      if (type === 'login') {
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        console.log('Login attempt:', { email, password });
+      } else {
+        const name = document.getElementById('signupName').value;
+        const email = document.getElementById('signupEmail').value;
+        const password = document.getElementById('signupPassword').value;
+        const birthdate = document.getElementById('birthdate').value;
+        const gender = document.getElementById('gender').value;
+        const location = document.getElementById('location').value;
+        const about = document.getElementById('about').value;
+        
+        console.log('Signup attempt:', { 
+          name, 
+          email, 
+          password,
+          birthdate,
+          gender,
+          location,
+          about
+        });
+      }
+    }
+
+    function signInWithGoogle() {
+      console.log('Google sign-in attempted');
+    }
+  </script>
+</body>
+</html>

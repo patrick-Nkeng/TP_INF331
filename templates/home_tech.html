@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechAssist - Tableau de bord</title>
+    <link rel="stylesheet" href="/static/home_tech.css">
+</head>
+<body>
+    <body>
+        <header class="header">
+            <nav class="nav">
+                <div class="logo">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="white">
+                        <path d="M11.5 6c1.5-1.5 3.8-1.5 5.3 0l1.2 1.2c1.5 1.5 1.5 3.8 0 5.3L16.5 14c-.8.8-1.8 1.2-2.8 1.2s-2-.4-2.8-1.2l-1.2-1.2c-1.5-1.5-1.5-3.8 0-5.3L11.5 6zm1.5 7.5c.4.4.9.6 1.5.6s1.1-.2 1.5-.6l1.2-1.2c.8-.8.8-2.1 0-3L16 8.2c-.8-.8-2.1-.8-3 0l-1.2 1.2c-.8.8-.8 2.1 0 3l1.2 1.1z"/>
+                    </svg>
+                    <h1>TechAssist</h1>
+                </div>
+            </nav>
+        </header>
+    
+        <main class="main-content">
+            <h2>Requêtes en cours</h2>
+            <div class="request-list">
+                <div class="request-item" data-id="1">
+                    <span class="priority-high">⚠️</span>
+                    <div class="request-details">
+                        <span class="status-badge status-pending">En attente</span>
+                        <h3>Réparation Ordinateur Portable</h3>
+                        <p>Description: Écran noir au démarrage, problème de carte mère supposé</p>
+                        <div class="client-info">
+                            <p><strong>Client:</strong> Sophie Laurent</p>
+                            <p><strong>Localisation:</strong> Bureau 203, Service Comptabilité</p>
+                            <p class="request-date">Ajouté le: 15 février 2024 à 09:30</p>
+                        </div>
+                        <textarea class="response-field" placeholder="Répondre au client..."></textarea>
+                    </div>
+                    <div class="actions">
+                        <button class="button action-btn">Prendre en charge</button>
+                        <button class="button">Répondre</button>
+                        <button class="button delete-btn">Supprimer</button>
+                    </div>
+                </div>
+    
+                <div class="request-item" data-id="2">
+                    <span class="priority-medium">⚠️</span>
+                    <div class="request-details">
+                        <span class="status-badge status-progress">En cours</span>
+                        <h3>Imprimante Défectueuse</h3>
+                        <p>Description: Bourrage papier récurrent et problèmes de connexion réseau</p>
+                        <div class="client-info">
+                            <p><strong>Client:</strong> Marc Bernard</p>
+                            <p><strong>Localisation:</strong> Open Space Marketing</p>
+                            <p class="request-date">Ajouté le: 14 février 2024 à 15:45</p>
+                        </div>
+                        <textarea class="response-field" placeholder="Répondre au client..."></textarea>
+                    </div>
+                    <div class="actions">
+                        <button class="button">Répondre</button>
+                        <button class="button delete-btn">Supprimer</button>
+                    </div>
+                </div>
+    
+                <div class="request-item" data-id="3">
+                    <span class="priority-low">⚠️</span>
+                    <div class="request-details">
+                        <span class="status-badge status-completed">Terminé</span>
+                        <h3>Configuration Téléphone IP</h3>
+                        <p>Description: Nouveau téléphone IP à configurer et à connecter au réseau</p>
+                        <div class="client-info">
+                            <p><strong>Client:</strong> Emma Rousseau</p>
+                            <p><strong>Localisation:</strong> Bureau Direction</p>
+                            <p class="request-date">Ajouté le: 13 février 2024 à 11:15</p>
+                        </div>
+                        <textarea class="response-field" placeholder="Répondre au client..."></textarea>
+                    </div>
+                    <div class="actions">
+                        <button class="button">Répondre</button>
+                        <button class="button delete-btn">Supprimer</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    
+        <footer class="footer">
+            <p>© TechAssist 2024</p>
+        </footer>
+
+        <script>
+            document.querySelectorAll('.action-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    if (this.textContent === 'Prendre en charge') {
+                        this.textContent = 'En cours';
+                        const statusBadge = this.closest('.request-item').querySelector('.status-badge');
+                        statusBadge.className = 'status-badge status-progress';
+                        statusBadge.textContent = 'En cours';
+                    }
+                });
+            });
+    
+            document.querySelectorAll('.delete-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const requestItem = this.closest('.request-item');
+                    requestItem.style.animation = 'fadeOut 0.3s ease-out';
+                    setTimeout(() => requestItem.remove(), 300);
+                });
+            });
+    
+            document.querySelectorAll('.response-field').forEach(textarea => {
+                textarea.addEventListener('keyup', function(e) {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        const responseBtn = this.closest('.request-details').nextElementSibling.querySelector('button');
+                        responseBtn.click();
+                    }
+                });
+            });
+        </script>
+    
+</body>
+</html>

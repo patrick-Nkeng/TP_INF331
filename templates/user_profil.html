@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="." />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/static/user_profil.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="https://techassist.com" class="navbar-brand">TechAssist</a>
+        <div class="navbar-links">
+            <a href="home">Accueil</a>
+        </div>
+    </nav>
+
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="profile-pic">
+                <svg viewBox="0 0 100 100">
+                    <circle cx="50" cy="35" r="25" fill="#2196F3"/>
+                    <circle cx="50" cy="100" r="45" fill="#2196F3"/>
+                </svg>
+            </div>
+            <div class="user-info">
+                <h1 class="user-name">Jean Dupont</h1>
+                <div class="basic-info">
+                    <p>♂ Masculin</p>
+                    <p>📅 Né le 15 mars 1990</p>
+                    <p>📍 Paris, France</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="about-section">
+            <h2>À propos</h2>
+            <p>Client de TechAssist depuis 2020. Propriétaire de plusieurs appareils électroniques nécessitant un entretien régulier. Apprécie particulièrement la qualité du service et la rapidité des interventions.</p>
+        </div>
+
+        <div class="expertise-section">
+            <h2>Mes Appareils</h2>
+            <div class="expertise-grid">
+                <div class="expertise-item">
+                    <h3>📱 Smartphone</h3>
+                    <p>iPhone 13 Pro</p>
+                </div>
+                <div class="expertise-item">
+                    <h3>💻 Ordinateur</h3>
+                    <p>MacBook Pro 2021</p>
+                </div>
+                <div class="expertise-item">
+                    <h3>🔧 Tablette</h3>
+                    <p>iPad Air 2022</p>
+                </div>
+                <div class="expertise-item">
+                    <h3>⚡ Accessoires</h3>
+                    <p>AirPods Pro, Apple Watch</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 TechAssist - Tous droits réservés</p>
+    </footer>
+
+ 
+<script>
+   // Animation pour les éléments d'expertise
+   document.querySelectorAll('.expertise-item').forEach((item, index) => {
+    item.style.animation = `fadeIn 0.5s ease forwards ${index * 0.2}s`;
+    item.style.opacity = '0';
+});
+
+// Ajout des styles d'animation
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+`;
+document.head.appendChild(style);
+</script>
+</body>
+</html>

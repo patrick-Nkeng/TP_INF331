@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechAssist - Centre de Notifications Client</title>
+    <link rel="stylesheet" href="/static/notification.css">
+</head>
+<body>
+    <header class="header">
+        <a href="https://techassist.example.com/home" class="home-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+            </svg>
+        </a>
+        <div class="logo">TechAssist</div>
+        <div class="page-title">Centre de Notifications Client</div>
+    </header>
+
+    <main class="notifications-container">
+        <div class="notification-card" onclick="openReplyModal(1)">
+            <div class="notification-header">
+                <span class="notification-title">Support Technique #2547</span>
+                <span class="notification-time">Il y a 5 minutes</span>
+            </div>
+            <div class="notification-content">
+                Bonjour, j'ai un problème avec mon installation Windows. Le système ne démarre plus après la dernière mise à jour.
+            </div>
+            <div class="notification-actions">
+                <button class="btn btn-primary">Répondre</button>
+                <button class="btn btn-secondary">Marquer comme lu</button>
+            </div>
+        </div>
+
+        <div class="notification-card" onclick="openReplyModal(2)">
+            <div class="notification-header">
+                <span class="notification-title">Demande d'assistance #2546</span>
+                <span class="notification-time">Il y a 30 minutes</span>
+            </div>
+            <div class="notification-content">
+                Je souhaiterais avoir des informations sur vos services de maintenance préventive.
+            </div>
+            <div class="notification-actions">
+                <button class="btn btn-primary">Répondre</button>
+                <button class="btn btn-secondary">Marquer comme lu</button>
+            </div>
+        </div>
+    </main>
+
+    <div id="replyModal" class="reply-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeReplyModal()">&times;</span>
+            <h2>Répondre à la notification</h2>
+            <form class="reply-form">
+                <textarea placeholder="Écrivez votre réponse ici..."></textarea>
+                <button type="submit" class="btn btn-primary">Envoyer</button>
+                <button type="button" class="btn btn-secondary" onclick="closeReplyModal()">Annuler</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 TechAssist - Tous droits réservés</p>
+    </footer>
+
+    <script>
+        function openReplyModal(notificationId) {
+            document.getElementById('replyModal').style.display = 'block';
+        }
+        
+        function closeReplyModal() {
+            document.getElementById('replyModal').style.display = 'none';
+        }
+        
+        // Fermer la modal si on clique en dehors
+        window.onclick = function(event) {
+            let modal = document.getElementById('replyModal');
+            if (event.target == modal) {
+                closeReplyModal();
+            }
+        }
+        
+        document.querySelector('.reply-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const replyText = this.querySelector('textarea').value;
+            if (replyText.trim()) {
+                alert('Réponse envoyée avec succès !');
+                closeReplyModal();
+                this.reset();
+            }
+        });
+        </script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="assets/" />
+    <title>TechAssist - Votre Assistant Virtuel</title>
+    <link rel="stylesheet" href="/static/chatbot.css">
+    <script src="/static/js/chatbot.js" defer></script>
+</head>
+<body>
+    <div class="history-container">
+        <div class="history-header">
+            <div class="history-title">Historique des conversations</div>
+            <button class="new-chat-btn" onclick="startNewChat()">Nouvelle conversation</button>
+        </div>
+        <div class="history-list" id="historyList"></div>
+    </div>
+
+    <div class="main-content">
+        <div class="chat-container">
+            <div class="chat-header">
+                <a href="https://techassist.com" class="home-button">Accueil</a>
+                <svg class="bot-avatar" viewBox="0 0 24 24">
+                    <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z"/>
+                </svg>
+                <h1>TechAssistant</h1>
+                <p>Alors on fait quoi aujourd'hui !</p>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot-message">
+                    Bonjour ! Je suis le chat TechMain.Quelle Probleme a votre machine aujourdhui?
+                </div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="userInput" placeholder="Écrivez votre message ici..." />
+                <button>Envoyer</button>
+            </div>
+        </div>
+    </div>
+    <script>document.addEventListener('DOMContentLoaded', () => {
+        const chatMessages = document.getElementById('chatMessages');
+        const userInput = document.getElementById('userInput');
+        const sendButton = document.querySelector('.chat-input button');
+    
+        // Function to add a message to the chat
+        function addMessage(message, sender = 'bot') {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message', `${sender}-message`);
+            messageElement.textContent = message;
+            chatMessages.appendChild(messageElement);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+    
+        // Function to send message to the API
+        async function sendMessage() {
+            const message = userInput.value.trim();
+            if (!message) return;
+    
+            // Add user message to chat
+            addMessage(message, 'user');
+            userInput.value = '';
+    
+            try {
+                // Disable send button during request
+                sendButton.disabled = true;
+    
+                const response = await fetch('/api/chatbot/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken') // Ensure CSRF protection
+                    },
+                    body: JSON.stringify({ message: message })
+                });
+    
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+    
+                const data = await response.json();
+                addMessage(data.message);
+            } catch (error) {
+                console.error('Error:', error);
+                addMessage('Désolé, une erreur s\'est produite. Veuillez réessayer.', 'error');
+            } finally {
+                // Re-enable send button
+                sendButton.disabled = false;
+            }
+        }
+    
+        // Function to get CSRF token from cookies
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    
+        // Event listeners
+        sendButton.addEventListener('click', sendMessage);
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    });</script>
+    <footer>
+        <p>© 2024 TechAssist - Tous droits réservés</p>
+    </footer>
+</body>
+</html>
